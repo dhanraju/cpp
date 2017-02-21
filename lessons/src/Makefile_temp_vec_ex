@@ -1,0 +1,22 @@
+IDIR = ../hfiles
+CC=g++
+CFLAGS=-I$(IDIR)
+
+ODIR = ../obj
+
+_DEPS = basic_class.h
+DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
+
+_OBJ = template_vector_ex.o
+OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
+
+$(ODIR)/%.o: %.cpp $(DEPS)
+	$(CC) -c -o $@ $< $(CFLAGS)
+
+template_vector_ex: $(OBJ)
+	g++ -o $@ $^ $(CFLAGS) $(LIBS)
+
+.PHONY: clean
+
+clean:
+	rm -f $(ODIR)/*.o *~ core $(INCDIR)/*~ test_basic_class
