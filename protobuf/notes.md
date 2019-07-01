@@ -7,6 +7,7 @@ Define protocol buffer message types in .proto files.
 Proto buf message is a small logical record of info, containing a series of name-value pairs.
 
 Eg: Proto buf message containing information about a person.
+<pre><code>
 message Person {
   required string name = 1;
   required int32 id = 2;
@@ -25,6 +26,7 @@ message Person {
 
   repeated PhoneNumber phone = 4;
 }
+</code></pre>
 
 Each msg type has one or more uniquely numbered fields, and each field has a name and a value type, where value types can be numbers (int or float), booleans, strings, raw bytes or even other proto buf msg types.
 
@@ -36,27 +38,30 @@ By running the compiler on the above example, will generate a class called Perso
 
 
 The code to WRITE our msg looks like this:
-
+<pre><code>
 Person person;
 person.set_name("Dhan Raju");
 person.set_id(1234);
 person.set_email("dh..ju@example.com");
 fstream output("myfile", ios::out | ios::binary);
 person.SerializeToOstream(&output);
-
+</code></pre>
 
 The code to READ our msg looks like this:
 
+<pre><code>
 fstream input("myfile", ios::in | ios::binary);
 Person person;
 person.ParseFromIstream(&input);
 cout << "Name: " << person.name() << endl;
 cout << "E-mail: " << person.email() << endl;
+</code></pre>
 
 Examples:
 https://github.com/protocolbuffers/protobuf/tree/master/examples
 
 How to build and run:
+<pre><code>
 $ bazel build :all
 $ bazel-bin/add_person_cpp addressbook.data
 addressbook.data: File not found. Creating a new file.
@@ -78,3 +83,4 @@ Person ID: 1
   Mobile phone #: 9......9
   Mobile phone #: 9898
   Updated: 2018-09-30T22:35:42Z
+</code></pre>
